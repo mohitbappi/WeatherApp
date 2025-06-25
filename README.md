@@ -74,7 +74,19 @@ If everything is set up correctly, you should see your new app running in the An
 
 This is one way to run your app — you can also build it directly from Android Studio or Xcode.
 
-## Step 3: Modify your app
+## Step 3: Testing your app
+
+This app uses Jest and @testing-library/react-native.
+
+```
+npm test
+
+# OR
+
+yarn test
+```
+
+## Step 4: Modify your app
 
 Now that you have successfully run the app, let's make changes!
 
@@ -85,7 +97,58 @@ When you want to forcefully reload, for example to reset the state of your app, 
 - **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
 - **iOS**: Press <kbd>R</kbd> in iOS Simulator.
 
-## Congratulations! :tada:
+## Architectural Decisions
+
+### 1. State Management - Redux Toolkit
+- **Why:** Provides predictable state management with excellent DevTools
+- **Benefits:** Time-travel debugging, centralized state, excellent TypeScript support
+- **Alternative considered:** Context API (chosen Redux for complex state management needs)
+
+### 2. Folder Structure - Feature-based
+- **Why:** Scales well as the app grows, clear separation of concerns
+- **Benefits:** Easy to locate files, reusable components, maintainable codebase
+- **Pattern:** Each feature has its own folder with components, styles, and logic
+
+### 3. Styling - Styled Components Pattern
+- **Why:** Theme support, component-scoped styles, TypeScript integration
+- **Benefits:** Dynamic theming, reusable styles, better organization
+- **Alternative:** StyleSheet (chosen styled approach for better maintainability)
+
+### 4. API Layer - Service Pattern
+- **Why:** Centralized API logic, easier testing, better error handling
+- **Benefits:** Reusable across components, consistent error handling, interceptors
+- **Implementation:** Axios with interceptors for common functionality
+
+### 5. Custom Hooks - Logic Separation
+- **Why:** Reusable logic, easier testing, cleaner components
+- **Benefits:** Single responsibility principle, easier unit testing
+- **Examples:** useWeather, useTheme, useStorage
+
+### 6. Testing Strategy - Comprehensive Coverage
+- **Unit Tests:** Components, hooks, services, utilities
+- **Integration Tests:** Redux slices, API integration
+- **Coverage Goal:** >70% for production readiness
+
+### 7. TypeScript - Full Type Safety
+- **Why:** Catch errors at compile time, better IDE support, documentation
+- **Benefits:** Reduced runtime errors, better refactoring, self-documenting code
+- **Implementation:** Strict TypeScript configuration with comprehensive typing
+
+### ⚡ Performance Optimizations
+- **Memoization:** React.memo for components, useMemo/useCallback for expensive operations
+- **Lazy Loading:** Dynamic imports for non-critical components
+- **Image Optimization:** Proper sizing and caching for weather icons
+- **API Optimization:** Request debouncing, error retry logic, timeout handling
+- **Storage Optimization:** Efficient AsyncStorage usage with error handling
+
+### 🔐 Security Considerations
+- **API Key Protection:** Environment variables, never commit to repository
+- **Input Validation:** Sanitize and validate all user inputs
+- **Error Handling:** Don't expose sensitive information in error messages
+- **Network Security:** HTTPS only, proper timeout configurations
+
+## 🎉 Congratulations!
+You're running a production-ready, scalable, and secure React Native Weather App. ✨
 
 You've successfully run and modified your React Native App. :partying_face:
 
